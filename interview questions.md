@@ -30,3 +30,81 @@
 ## Strings
 - When dealing with strings, we can use counting sort as it's the best sorting algorithm for string, it can also easily identify if a string has unique characters or permutation check...
 - Counting sort assumes the values are positive integer and within a range. It retains an empty array has that has length of the range. When skimming through an element, it will update the empty array by incrementing at the index equal to the value, if the element is duplicated then the value in the empty array is 2 or 3 ...
+
+## Linked Lists
+- There are singly linked list which each node only links to the next node and doubly linked node which each node links to both next and previous node.
+- Linked list if faster than array list when inserting and removing but slower then searching because it has to loop through all elements
+  ```javascript
+	class Node {
+		constructor (data){
+			this.data = data;
+			this.next = null;
+		}
+	}
+	class LinkedList {
+		constructor() {
+			this.head = null;
+			this.size = 0;
+		}
+		addNode(node){
+			if (this.head === null){
+				this.head = node;
+			} else {
+				let index = this.head;
+				//find the tail 
+				while (index.next){
+					index = index.next;
+				}
+				//append new node to the tail
+				index.next = node;
+			}
+			this.size+=1;
+		}
+		remove(node){
+			if (this.head === null){
+				return;
+			}
+			if (this.head.data === node.data){
+				this.head = null;
+				this.size = 0;
+				return;
+			}
+			let index = this.head;
+			while (index.next){
+				if (index.next.data === node.data){
+					index.next = index.next.next;
+					this.size -= 1;
+					break;
+				}
+				index = index.next;
+			}
+		}
+	}
+
+	let linkedList = new LinkedList();
+	linkedList.addNode(new Node(10));
+	linkedList.addNode(new Node(20));
+	linkedList.addNode(new Node(30));
+	linkedList.addNode(new Node(40));
+	console.log(linkedList);
+	linkedList.remove(new Node(30));
+	console.log(linkedList);
+  ```
+- The runner technique is a technique used in some linked list problem. We have 2 pointers, 1 slow and 1 fast, the fast pointer is always twice as fast as the slow one.
+- Let's say we need to check if a linked list is cyclic or not, we can run both pointers. If at some point, the fast pointer catches up with the slow one then we have a cyclic linked list. If the fast pointer encounter null node then we have an acyclic linked list.
+  ```javascript
+	function cyclic(linkedList){
+		let slow = linkedList.head;
+		let fast = linkedList.head.next;
+		while (slow.next && fast.next && fast.next.next){
+			slow = slow.next;
+			fast = fast.next.next;
+			if (slow.data === fast.data){
+				return true;
+			}
+		}
+		return false;
+	}
+	linkedList.addNode(linkedList.head);
+	console.log(cyclic(linkedList));
+  ```
