@@ -26,3 +26,7 @@
 
 ## ArrayList
 - ArrayList takes O(1) time complexity to add 1 element without expanding the capacity and O(n) to add while expanding because it needs to create a new array, copy the elements over and add one at the end
+
+## Strings
+- When dealing with strings, we can use counting sort as it's the best sorting algorithm for string, it can also easily identify if a string has unique characters or permutation check...
+- Counting sort assumes the values are positive integer and within a range. It retains an empty array has that has length of the range. When skimming through an element, it will update the empty array by incrementing at the index equal to the value, if the element is duplicated then the value in the empty array is 2 or 3 ...
