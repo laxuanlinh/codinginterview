@@ -108,3 +108,89 @@
 	linkedList.addNode(linkedList.head);
 	console.log(cyclic(linkedList));
   ```
+- Some linked list problems can be solved using recursion. Recursion can be implemented iteratively but can be more complicated
+- Linked list can be sorted using merge sort:
+  - Given 2 sorted lists `left` and `right`, we need to merge them into 1 sort list by comparing first elements of both and add the smaller one to a buffer list until either `left` or `right` is empty, then we add buffer list, left and right together to have a sorted list
+  - Merge sort is basically divide a list into smaller and smaller sublists that have 1 or 2 elements each then merge them together into a bigger sorted list.
+  ```javascript
+	function mergeArrays(left, right){
+		let array = [];
+		while (left.length && right.length) {
+			if (left[0] < right[0]) {
+				array.push(left.shift())
+			} else {
+				console.log()
+				array.push(right.shift())
+			}
+		}
+		return [ ...array, ...left, ...right ]
+	}
+	function mergeSort(array){
+		if (array.length < 2){
+			return array;
+		}
+		const mid = array.length/2;
+		const left = array.splice(0, mid);
+		return mergeArrays(mergeSort(left), mergeSort(array));
+	}
+	let array = [1, 10, 22, 41, 0, 8];
+	console.log(mergeSort(array));
+  ```
+- Sort linked list using merge sort:
+  ```javascript
+	function mergeSort(linkedList){
+		if (!linkedList || !linkedList.head){
+			return linkedList;
+		}
+		if (linkedList.size < 2 ){
+			return linkedList;
+		}
+		let leftCurrent = linkedList.head;
+		let index = 0;
+		let left = new LinkedList();
+		let right = new LinkedList();
+		while (index < Math.floor(linkedList.size/2)){
+			left.addNode(new Node(leftCurrent.data));
+			leftCurrent = leftCurrent.next;
+			index++;
+		}
+		right.addNode(leftCurrent);
+		right.size+=linkedList.size - index - 1;
+		return mergeLinkedList(mergeSort(left), mergeSort(right));
+	}
+
+	function mergeLinkedList(left, right){
+		let currentLeft = left.head;
+		let currentRight = right.head;
+		let linkedList = new LinkedList();
+		while (currentLeft && currentRight){
+			if (currentLeft.data < currentRight.data){
+				linkedList.addNode(new Node(currentLeft.data));
+				left.remove(currentLeft);
+				currentLeft = currentLeft.next;
+			} else {
+				linkedList.addNode(new Node(currentRight.data));
+				right.remove(currentRight);
+				currentRight = currentRight.next;
+			}
+		}
+		
+		return append(linkedList, left, right);
+	}
+
+	function append(linkedList, left, right){
+		if (left.head) {
+			left.tail.next = right.head;
+		} else {
+			left.head = right.head;
+		}
+		if (linkedList.head){
+			linkedList.tail.next = left.head;
+		} else {
+			linkedList.head = left.head;
+		}
+		linkedList.size+=left.size;
+		linkedList.size+=right.size;
+		return linkedList;
+	}
+  ```
