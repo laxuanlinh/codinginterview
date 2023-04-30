@@ -194,3 +194,30 @@
 		return linkedList;
 	}
   ```
+- We can reverse a linked list by breaking the link to the next element and point it to the previous element but at the same time need to retain the original next element so that we don't break the linked list:
+  - null -> 1 -> 2 -> 3 -> null
+  - null <- 1 -> 2 -> 3 -> null
+  - null <- 1 <- 2 -> 3 -> null
+  - null <- 1 <- 2 <- 3 -> null
+  ```javascript
+	function reverse(node){
+		let current = node;
+		let prev = null;
+		let next = null;
+		while (current){
+			//save the original next element
+			next = current.next;
+			//break the link to next and point to previous element
+			current.next = prev;
+			//move the currently previous element up to 1 position
+			//so that the next loop can point to it as "next element"
+			prev = current;
+			//move the current pointer to the next element to continue
+			current = next;
+		}
+		//the last loop sets current node to null
+		//need to set it back to its previous element
+		node = prev;
+		return node;
+	}
+  ```

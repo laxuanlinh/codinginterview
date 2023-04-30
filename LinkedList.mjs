@@ -2,7 +2,6 @@ export class Node {
     constructor (data){
         this.data = data;
         this.next = null;
-        this.prev = null;
     }
 }
 export default class LinkedList {
@@ -22,7 +21,6 @@ export default class LinkedList {
             }
             //append new node to the tail
             index.next = node;
-            node.prev = index;
         }
         this.tail = node;
         this.size++;
@@ -34,7 +32,6 @@ export default class LinkedList {
         if (this.head.data === node.data){
             if (this.head.next){
                 this.head = this.head.next;
-                this.head.prev = null;
             } else {
                 this.head = null;
             }
