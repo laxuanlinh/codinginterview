@@ -221,3 +221,50 @@
 		return node;
 	}
   ```
+
+## Stack
+- Stack is LIFO (last in first out)
+- It has common methods such as :
+  - pop(): return and remove the top element
+  - peek(): return the top element
+  - push(): add element on top the stack
+  - isEmpty(): check if the stack is empty
+  ```javascript
+	class StackNode {
+		constructor (data){
+			this.next = null;
+			this.data = data;
+		}
+	}
+
+	class Stack {
+		constructor (){
+			this.top = null;
+		}
+		pop(){
+			const result = this.top.data;
+			this.top = this.top.next;
+			return result;
+		}
+		peek(){
+			return this.top.data;
+		}
+		push(data){
+			const temp = this.top;
+			this.top = new StackNode(data);
+			this.top.next = temp;
+		}
+		isEmpty(){
+			return this.top == null;
+		}
+	}
+  ```
+- Stack is useful for recursive algorithms when we need to push temporary data and then backtrack
+- Stack can also allow us to write recursive algorithms iteratively
+
+## Queue
+- Queue is FIFO
+  ```javascript
+
+
+  ```

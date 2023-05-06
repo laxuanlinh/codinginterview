@@ -1,7 +1,7 @@
 import LinkedList, {Node} from './LinkedList.mjs'
 
 function returnKth(k, array){
-    if (array.size - 1 < k){
+    if (array.getSize() - 1 < k){
         return new LinkedList();
     }
 

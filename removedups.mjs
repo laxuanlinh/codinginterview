@@ -17,20 +17,19 @@ function mergeSort(linkedList){
     if (!linkedList || !linkedList.head){
         return linkedList;
     }
-    if (linkedList.size < 2 ){
+    if (linkedList.getSize() < 2 ){
         return linkedList;
     }
     let leftCurrent = linkedList.head;
     let index = 0;
     let left = new LinkedList();
     let right = new LinkedList();
-    while (index < Math.floor(linkedList.size/2)){
+    while (index < Math.floor(linkedList.getSize()/2)){
         left.addNode(new Node(leftCurrent.data));
         leftCurrent = leftCurrent.next;
         index++;
     }
     right.addNode(leftCurrent);
-    right.size+=linkedList.size - index - 1;
     console.log("Left is "+left.toString());
     console.log("Right is "+right.toString());
     return mergeLinkedList(mergeSort(left), mergeSort(right));
@@ -70,8 +69,6 @@ function append(linkedList, left, right){
     } else {
         linkedList.head = left.head;
     }
-    linkedList.size+=left.size;
-    linkedList.size+=right.size;
     return linkedList;
 }
 

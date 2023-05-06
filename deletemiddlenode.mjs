@@ -4,7 +4,7 @@ function deleteMiddle(array){
     let index = 0;
     let current = array.head;
     while (current.next){
-        if (index === Math.floor(array.size/2)){
+        if (index === Math.floor(array.getSize()/2)){
             array.remove(current);
             break
         }
