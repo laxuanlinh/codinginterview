@@ -11,6 +11,9 @@ export default class Stack {
         this.size = 0;
     }
     pop(){
+        if (this.top == null){
+            return null;
+        }
         const result = this.top.data;
         this.top = this.top.next;
         this.size--;
@@ -31,4 +34,38 @@ export default class Stack {
     isEmpty(){
         return this.top == null;
     }
+    min(){
+        let min = this.top;
+        let current = this.top;
+        while (current) {
+            if (current.data < min.data){
+                min = current;
+            }
+            current = current.next;
+        }
+        return min
+    }
+    toString(){
+        let current = this.top;
+        let str = [];
+        while (current) {
+            str.push(current.data);
+            current = current.next;
+        }
+        return str;
+    }
 }
+
+// const stack = new Stack();
+// stack.push(3);
+// stack.push(2);
+// stack.push(6);
+// stack.push(4);
+// stack.push(5);
+// stack.push(1);
+// stack.push(0);
+// stack.push(4);
+// stack.push(6);
+// stack.push(9);
+// stack.push(7);
+// console.log(stack.min())
