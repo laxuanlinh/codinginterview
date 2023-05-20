@@ -303,4 +303,85 @@
 	}
   ```
 - Queue is useful in Breadth-first search too keep track of nodes 
-- 
+
+## Tree
+- Each tree has a root node, a node can have zero or many child nodes
+- Root node cannot contain cycles.
+- A child node can have any data, it may or may not have links back to its parent
+  ```javascript
+	class Node {
+		constructor(name){
+			this.name = name;
+			this.children = [];
+		}
+	}
+  ```
+- Trees are not very useful in interviews
+- Binary tree: are trees that have up to 2 child nodes
+  ```javascript
+	class BinaryTree{
+		constructor(value) {
+			this.root = new Node(value);
+		}
+		add(value) {
+			let current = this.root;
+			while (current){
+				if (value <= current.value){
+					if (!current.left){
+						current.addLeft(value);
+						break;
+					} else {
+						current = current.left;
+					}
+				} else {
+					if (!current.right){
+						current.addRight(value);
+						break;
+					} else {
+						current = current.right;
+					}
+				}
+			}
+		}
+	}
+  ```
+- `Binary search tree`: are trees that each node has left decendent <= node < right decendent and this must be true to all of its decendents
+- `A balanced tree` is a binary search tree which the hight of the left and right of any subtree differ by no more than 1
+- `A complete binary` tree is a tree almost filled except for the last level, the last level is filled from left to right
+- `A full binary` tree is a tree in which each node either has zero or 2 child nodes
+- `A perfect binary` tree is a tree that is both complete and full
+- `In-order traversal` is to visit left node -> node -> right node
+- `Pre order traversal` is to visit node -> left node -> right node
+- `Post order traversal` is to visit left node -> right node -> node
+- Min-heap is a complete binary tree that each node is smaller than its children.
+- To insert to a min-heap, we first insert to the most rightmost bottommost node, then swap the node with its parent until it's no longer greater than the parent, the root of a min-heap is always the smallest.
+- To extract a min-heap, first remove the root, replace it with the bottommost rightmost element, then swap the root with its children (the smaller one) until the proper order of the heap is restored
+
+## Graph
+- All trees are graphs but not all graphs are trees
+- In graphs, a node can have 1 way or 2 way link to another node (vertex)
+- Graphs can have cycles, graphs without cycles are called acyclic graphs
+- There are 2 ways to represent a Graph: Adjacency list and Adjacency matrix
+- Adjacency list:
+  ```javascript
+	class Node{
+		constructor(value){
+			this.value = value;
+			this.children = []
+		}
+		link(node){
+			this.children.push(node);
+		}
+	}
+	class Graph {
+		constructor(){
+			this.nodes = []
+		}
+	}
+  ```
+- Adjacency matrix is a NxN boolean matrix where N is the number of node.
+- If matrix[i][j]==true then the node i and j are connected.
+- In an undirected graph, a adjancecy matrix is symmetric, in a directed matrix, it's not necessarily
+- There are 2 common ways to search a graph: depth-first search and breadth-first search.
+- Depth-first search is we search a branch first before moving to another branch, this is simpler
+- Breadth-first search is we search all nodes of the current level before moving to the next level
