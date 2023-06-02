@@ -385,3 +385,16 @@
 - There are 2 common ways to search a graph: depth-first search and breadth-first search.
 - Depth-first search is we search a branch first before moving to another branch, this is simpler
 - Breadth-first search is we search all nodes of the current level before moving to the next level
+
+## Bit manipulation
+- Base 2: $101 = 1*2^2+0*2^1+1*2^0=5$
+- Base 2 addition is similar to base 10, when we hit the limit, we carry the 1 over to the next digit 101 + 011=1000
+- Negative numbers are stored in two's complement form, the first bit is used, 0 for positive and 1 for negative
+- We can find the negative number of a number by asking what number to add to get 0.
+- Example, if we use 8-bit integer: 00010010, we need to find a number added to give 10000000. We can use two's complement method by finding the smallest bit 1, keep all bits before it and flip all bits after it. In this case the result is 11101110
+- Shifting bits to the left to multiply by 2 and to the right to divide by 2.
+- Example: 11101001(-23) / 2 = 11110100(-12)
+- In Arithmetic shift, we add the original first bit back to preserve number's sign.
+- Bit masking is to apply AND, OR and XOR 
+- Example: 1 & 1 = 1, 1 | 0 = 0, 0 ~ 0 = 0
+  
