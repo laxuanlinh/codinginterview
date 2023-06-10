@@ -397,4 +397,31 @@
 - In Arithmetic shift, we add the original first bit back to preserve number's sign.
 - Bit masking is to apply AND, OR and XOR 
 - Example: 1 & 1 = 1, 1 | 0 = 0, 0 ~ 0 = 0
-  
+
+## Dynamic programming
+- Dynamic programming is basically recursion but with the result of the subproblem saved and used for the next calculation.
+- One of the dynamic programming example is find Fibonancy number
+  ```javascript
+	function fibonancy(num){
+		const map = {}; //map to memorize the result
+		return calculate(map, num); //pass map and number to calculate
+	}
+	function calculate(map, num){
+		if (map[num]){
+			return map[num];//if it's already calculated, no need to go further
+		} else if (num == 0){
+			map[0] = 0;//memorize the result
+			return 0;
+		} else if (num == 1){
+			map[1] = 1;//memorize the result
+			return 1;
+		}  
+		const result = calculate(map, num-1) + calculate(map, num-2);//calculate the smaller problem
+		map[num] = result;//memorize the result
+		return result;
+	}
+	console.log(fibonancy(6));//8
+  ```
+- There are 2 ways to approach recursion, bottom-up and top-down
+- Top-down is to divide the problem into smaller problem
+- Bottom-up is to start with the smallest problem and work our way up until it reaches the original problem.
