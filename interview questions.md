@@ -425,3 +425,24 @@
 - There are 2 ways to approach recursion, bottom-up and top-down
 - Top-down is to divide the problem into smaller problem
 - Bottom-up is to start with the smallest problem and work our way up until it reaches the original problem.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
