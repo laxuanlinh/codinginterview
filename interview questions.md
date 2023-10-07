@@ -426,7 +426,79 @@
 - Top-down is to divide the problem into smaller problem
 - Bottom-up is to start with the smallest problem and work our way up until it reaches the original problem.
 
+## Least Recent Cache problem
+- Write a data structure that can store some data at a certain capacity.
+- The data structure has method get() and put().
+- If a new data is inserted and the data structure is at capacity, we need to remove the least recently used element, and insert a new one.
+- If a new element is inserted, it's considered as recently used
+- If a element is returned from get() method, it's considered as recently used.
+- For example:
+  - Create a cache with capacity=2
+  - Put {1, 1} => insert {1, 1} and {1, 1} is the most recently used
+  - Put {2, 2} => insert {2, 2} and {2, 2} is the most recently used
+  - Get 1 => return 1, and {1, 1} is the most recently used
+  - Put {3, 3} => remove {2, 2} because capacity and it's the least recently used then insert {3, 3}
+  - Get 4 => return -1 because it doesn't exist
+- We can use a `HashMap` to store cache and use a `List` to keep track of the recently used elements, however `List` has complexity of `O(N)` so it doesn't work with large dataset.
+- The solution is to use `LinkedHashMap` because it's a HashMap with automatically keeps the order of insertion.
+```java
+	public int get(int key) {
+        if (!cache.containsKey(key)){
+            return -1;
+        }
+        moveToRecent(key, cache.get(key));
+        return cache.get(key);
+    }
 
+    public void put(int key, int value) {
+        if (cache.containsKey(key)){
+            moveToRecent(key, value);
+        } else if (cache.size() == capacity){
+            Iterator<Integer> iterator = cache.keySet().iterator();
+            iterator.next();
+            iterator.remove();
+            cache.put(key, value);
+        } else {
+            cache.put(key, value);
+        }
+    }
+```
+
+## Top K frequent
+- Given a number array and a number k, find top k elements that appear most frequently in the array.
+- Example [1, 1, 2, 3, 2, 1] and k=2 => result is [1, 2]
+- Solution:
+  - We can use HashMap to count the frequency of each unique number
+  - Since HashMap is unordered, we can use LinkedHashMap to sort it 
+  ```java
+  List<Integer> temp = freq.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .map(e -> e.getKey())
+                .collect(Collectors.toList());
+  ```
+  - This will return a LinkedHashMap sorted ascendingly, since we need the most frequent, we need to loop from the bottom of the list to get k elements.
+
+## Two Sum
+- Given a number array and a target, find 2 elements that have sum equal to the target
+- Solution:
+  - We can have a map where keys are the number elements and values are their indexes
+  - However to avoid duplication of index, we need to check map containsKey before adding a new element
+  - If we add to map first and then check, we can run into problem when current + current = target so we return 1 index twice
+	```java
+	Map<Integer, Integer> pos = new HashMap<>();
+	for (int i=0; i<list.size(); i++){
+		int current = list.get(i);
+		int temp = target - current;
+		//check if before this, is there any element that has the sum with the current equal to target
+		if (pos.containsKey(temp)){
+			return new int[] {pos.get(temp), i};
+		}
+		//if not then we put this to the map
+		//if we put first and then check, we can run into problem when current + current = target so we return 1 index twice
+		pos.put(current, i);
+	}
+	return null;
+	```
 
 
 
