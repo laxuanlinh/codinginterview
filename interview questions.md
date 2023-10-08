@@ -499,8 +499,49 @@
 	}
 	return null;
 	```
-
-
+## Three Sum
+- Given a number array, return list of 3-element arrays that has sum = 0
+- Solution:
+  - Since we don't have to return indexes, we can sort the list first to make it easy.
+  ```java
+  List<Integer> list = Arrays.stream(nums).boxed().sorted().collect(Collectors.toList());
+  ```
+  - Loop from 0 to n, for each element, we have another 2 pivot `left` and `right`
+  - If `left` == `current index` or `right` == `current index` then we increment or decrement to skip because we don't want to have an element twice.
+  - If `left` + `current` + `right` == 0, then add it to the result list, move `left` to the left, move `right` to  the right
+  - If `left` + `current` + `right` > 0 then move `left` to the left (we can't increment `right` because `right` is larger already)
+  - If `left` + `current` + `right` < 0 then move `right` to the right (same reason we can't decrement `left`)
+  ```java
+	//use Set to avoid duplicate results like [-1,0,1],[-1,0,1]
+  	Set<List<Integer>> res = new HashSet<>();
+  	for (int i = 0; i < list.size() - 1; i++) {
+		int a = list.get(i);
+		int bIndex = i+1;
+		int cIndex = list.size() - 1;
+		while (bIndex < cIndex){
+			if (bIndex == i){
+				bIndex++;
+				continue;
+			}
+			if (cIndex == i){
+				cIndex--;
+				continue;
+			}
+			int b = list.get(bIndex);
+			int c = list.get(cIndex);
+			if (a+b+c==0){
+				res.add(List.of(a, b, c));
+				bIndex++;
+				cIndex--;
+			} else if (a+b+c > 0){
+				cIndex--;
+			} else {
+				bIndex++;
+			}
+		}
+	}
+	return new ArrayList<>(res);
+  ```
 
 
 
