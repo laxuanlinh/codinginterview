@@ -2,41 +2,32 @@ import java.util.Arrays;
 
 public class RemoveDuplicatesFromSortArray2 {
     public static void main(String[] args) {
-        var nums = new int[] {1,2, 2};
+        var nums = new int[] {1,1,1,2,2,3,3,3,3,4,5,5,5};
         var k = new RemoveDuplicatesFromSortArray2().removeDuplicates(nums);
         System.out.println(Arrays.toString(nums));
         System.out.println(k);
     }
+
+    //https://www.youtube.com/watch?v=ycAq8iqh0TI&ab_channel=NeetCodeIO
     public int removeDuplicates(int[] nums) {
-        if (nums.length < 3) {
-            return nums.length;
-        }
-        int i = 1;
-        int k = 1;
-        while (k < nums.length+1 && i < nums.length) {
-            int numsk = 0;
-            if (k==nums.length) {
-                numsk = Integer.MAX_VALUE;
-            } else {
-                numsk = nums[k];
+        int i = 0;
+        int k = 0;
+        while (k<nums.length) {
+            var count = 0;
+            //count how many element of the next streak
+            for (int j = k; j < nums.length; j++) {
+                if (nums[j] != nums[k]) {
+                    break;
+                }
+                count++;
             }
-            if (i == k || nums[i] == numsk) {
-                k++;
-                continue;
-            }
-            if (numsk == nums[i-1] && numsk == nums[i-2]) {
-                k++;
-                continue;
-            }
-            if (i >= 2 && nums[i] != numsk && nums[i]<=nums[i-1] && nums[i]<=nums[i-2]) {
-                nums[i] = numsk;
-                i++;
-                k++;
-                continue;
-            }
-            if (i < 2 || numsk != nums[i] && (nums[i] != nums[i-1] || nums[i] != nums[i-2])) {
+            //shift at most 2 elements of the next streak to current index
+            for (int j = 0; j < Math.min(2, count); j++) {
+                nums[i] = nums[k];
                 i++;
             }
+            //move k to the next streak
+            k+=count;
         }
         return i;
     }
