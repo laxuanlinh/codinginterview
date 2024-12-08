@@ -48,16 +48,19 @@ public class RotateArray {
     //6,5,7,1,2,3,4
     //5,6,7,1,2,3,4
     public void optimalRotate(int[] nums, int k){
-        for (int i = nums.length-1; i >=0 ; i--) {
-            var temp = nums[i];
-            nums[i] = nums[Math.max(i-k, 0)];
-            nums[Math.max(i-k, 0)] = temp;
+        reverse(nums, 0, nums.length-1);
+        reverse(nums, 0, k-1);
+        reverse(nums, k, nums.length-1);
+    }
+
+
+
+    private void reverse(int[] nums, int start, int end){
+        var begin = 0;
+        if ((end - start+1)%2==0) {
+            begin = 1;
         }
-//        for (int i = k-1; i >=0 ; i--) {
-//            var temp = nums[i];
-//            nums[i] = nums[Math.max(i-k, 0)];
-//            nums[Math.max(i-k, 0)] = temp;
-//        }
+        while 
     }
 
 }
