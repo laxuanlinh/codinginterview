@@ -3,8 +3,8 @@ import java.util.Arrays;
 public class RotateArray {
 
     public static void main(String[] args) {
-        var nums = new int[]{1,2,3,4,5,6,7};
-        new RotateArray().optimalRotate(nums, 3);
+        var nums = new int[]{1,2,3,4};
+        new RotateArray().optimalRotate(nums, 7);
         System.out.println(Arrays.toString(nums));
     }
 
@@ -48,6 +48,7 @@ public class RotateArray {
     //6,5,7,1,2,3,4
     //5,6,7,1,2,3,4
     public void optimalRotate(int[] nums, int k){
+        k = k%nums.length;
         reverse(nums, 0, nums.length-1);
         reverse(nums, 0, k-1);
         reverse(nums, k, nums.length-1);
@@ -56,11 +57,13 @@ public class RotateArray {
 
 
     private void reverse(int[] nums, int start, int end){
-        var begin = 0;
-        if ((end - start+1)%2==0) {
-            begin = 1;
+        while (start < end) {
+            var temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
         }
-        while 
     }
 
 }
